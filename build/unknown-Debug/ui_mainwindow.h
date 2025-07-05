@@ -77,7 +77,7 @@ public:
     QLabel *label_8;
     QRadioButton *radioButton_3;
     QRadioButton *radioButton_4;
-    QWidget *widget;
+    QWidget *layoutWidget5;
     QGridLayout *gridLayout_2;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_4;
@@ -105,6 +105,7 @@ public:
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         label = new QLabel(layoutWidget);
         label->setObjectName("label");
+        label->setMinimumSize(QSize(187, 0));
 
         horizontalLayout->addWidget(label);
 
@@ -315,26 +316,26 @@ public:
 
         horizontalLayout_5->addWidget(radioButton_4);
 
-        widget = new QWidget(centralwidget);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(30, 130, 841, 91));
-        gridLayout_2 = new QGridLayout(widget);
+        layoutWidget5 = new QWidget(centralwidget);
+        layoutWidget5->setObjectName("layoutWidget5");
+        layoutWidget5->setGeometry(QRect(30, 130, 841, 91));
+        gridLayout_2 = new QGridLayout(layoutWidget5);
         gridLayout_2->setObjectName("gridLayout_2");
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName("verticalLayout_2");
-        label_4 = new QLabel(widget);
+        label_4 = new QLabel(layoutWidget5);
         label_4->setObjectName("label_4");
 
         verticalLayout_2->addWidget(label_4);
 
-        lineEdit = new QLineEdit(widget);
+        lineEdit = new QLineEdit(layoutWidget5);
         lineEdit->setObjectName("lineEdit");
         lineEdit->setStyleSheet(QString::fromUtf8("QLineEdit { border: 1px solid black; }"));
 
         verticalLayout_2->addWidget(lineEdit);
 
-        pushButton_2 = new QPushButton(widget);
+        pushButton_2 = new QPushButton(layoutWidget5);
         pushButton_2->setObjectName("pushButton_2");
 
         verticalLayout_2->addWidget(pushButton_2);
@@ -344,18 +345,18 @@ public:
 
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName("verticalLayout_3");
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget5);
         label_3->setObjectName("label_3");
 
         verticalLayout_3->addWidget(label_3);
 
-        lineEdit_2 = new QLineEdit(widget);
+        lineEdit_2 = new QLineEdit(layoutWidget5);
         lineEdit_2->setObjectName("lineEdit_2");
         lineEdit_2->setStyleSheet(QString::fromUtf8("QLineEdit { border: 1px solid black; }"));
 
         verticalLayout_3->addWidget(lineEdit_2);
 
-        pushButton_3 = new QPushButton(widget);
+        pushButton_3 = new QPushButton(layoutWidget5);
         pushButton_3->setObjectName("pushButton_3");
 
         verticalLayout_3->addWidget(pushButton_3);
@@ -384,8 +385,8 @@ public:
         radioButton->setText(QCoreApplication::translate("MainWindow", "\320\224\320\260", nullptr));
         radioButton_2->setText(QCoreApplication::translate("MainWindow", "\320\235\320\265\321\202", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "\320\230\320\273\320\270 \320\267\320\260\320\264\320\260\320\271\321\202\320\265 \321\210\320\260\320\261\320\273\320\276\320\275:", nullptr));
-        label_5->setText(QCoreApplication::translate("MainWindow", "\320\232\320\273\321\216\321\207 \320\274\320\276\320\264\320\270\321\204\320\270\320\272\320\260\321\206\320\270\320\270 \321\204\320\260\320\273\320\276\320\262(8 \320\261\320\260\320\271\321\202/8 \321\201\320\270\320\274\320\262\320\276\320\273\320\276\320\262):", nullptr));
-        lineEdit_3->setText(QCoreApplication::translate("MainWindow", "12345678", nullptr));
+        label_5->setText(QCoreApplication::translate("MainWindow", "\320\232\320\273\321\216\321\207 \320\274\320\276\320\264\320\270\321\204\320\270\320\272\320\260\321\206\320\270\320\270 \321\204\320\260\320\273\320\276\320\262(8 \320\261\320\260\320\271\321\202/16 \321\201\320\270\320\274\320\262\320\276\320\273\320\276\320\262):", nullptr));
+        lineEdit_3->setText(QCoreApplication::translate("MainWindow", "123456789ABCDEFA", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "\320\222\321\213\320\261\320\265\321\200\320\270\321\202\320\265 \320\270\320\267\320\274\320\265\320\275\321\217\320\265\320\274\321\213\320\265 \321\204\320\276\321\200\320\274\320\260\321\202\321\213 \321\204\320\260\320\271\320\273\320\276\320\262:", nullptr));
         checkBoxPNG->setText(QCoreApplication::translate("MainWindow", "png", nullptr));
         checkBoxGIF->setText(QCoreApplication::translate("MainWindow", "gif", nullptr));

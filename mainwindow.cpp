@@ -6,6 +6,7 @@
 #include <QString>
 #include "QFileDialog"
 #include "QDirIterator"
+#include "QRegularExpression"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -25,14 +26,21 @@ MainWindow::~MainWindow()
 bool MainWindow::makeChecks(){
     //Проверка 8-байтного ключа
     int length = ui->lineEdit_3->text().length();
-    if(length==8)
-    {
-        key = ui->lineEdit_3->text().toUtf8();
+    QRegularExpression hexMatcher("[0-9A-Fa-f]", QRegularExpression::CaseInsensitiveOption);
+    QRegularExpressionMatch match = hexMatcher.match(ui->lineEdit_3->text().toUtf8());
+    if(length==16)
+    {    if(match.hasMatch()){
+            key = ui->lineEdit_3->text().toUtf8();
+        }else{
+        QMessageBox::warning(this, "Внимание!", "Введенный ключ не является числом в 16-ричной системе");
+             return false;
+        }
     }else{
-        QMessageBox::warning(this, "Внимание!", "Введенный ключ должен содержать 8 символов!\
+        QMessageBox::warning(this, "Внимание!", "Введенный ключ должен содержать 16 символов!\
                                                  Сейчас символов: " + QString::number(length));
         return false;
     }
+
     //Проверка, что задана входная директория
     if((ui->lineEdit->text()=="")||(!QDir(ui->lineEdit->text()).exists()))
     {
@@ -194,6 +202,5 @@ void MainWindow::on_checkBox_checkStateChanged(const Qt::CheckState &arg1)
         ui->spinBox_3->setEnabled(false);
         ui->spinBox_4->setEnabled(false);
     }
-
 }
 

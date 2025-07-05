@@ -5,6 +5,7 @@
 #include "ui_mainwindow.h"
 #include "QDirIterator"
 #include "QTimer"
+#include <QBitArray>
 
 
 Runnable::Runnable(QObject *parent)
@@ -12,14 +13,21 @@ Runnable::Runnable(QObject *parent)
 {}
 
 //операция XOR между строками
+
 QByteArray Runnable:: xorStrings(const QByteArray& data) {
     QByteArray result;
     result.resize(data.size());
-
     // Применяем XOR циклически для каждого байта
-    for (int i = 0; i < data.size(); ++i) {
-        result[i] = data[i] ^ m_key[i % 8];
+    //qDebug()<< data;
+    for (int i = 0; i < data.size(); ++i)
+    {
+        //qDebug()<<data[i];
+        //qDebug()<< m_key[i%16];
+        result[i] = data.at(i)^m_key.at(i % 16);
+        //result[i] = data[i] ^ m_key[i % 16];
+        //qDebug()<<data[i]<<" + "<< m_key[i%16]<<" = "<<result[i];
     }
+    //qDebug()<<data.size()<<" = "<<result.size();
     return result;
 }
 
@@ -67,9 +75,9 @@ void Runnable::run(){//тут выполнять преобразование ф
     do
     {
         m_files=findFilesToModify(m_dir1, m_filters);
-        qDebug() << "Найденные файлы:";
+        //qDebug() << "Найденные файлы:";
         foreach (const QString &file, m_files) {
-            qDebug() << file;
+            //qDebug() << file;
             //чтение
             //формирование имени результирующего файла
             QDir dirrr(m_dir2);
@@ -81,19 +89,43 @@ void Runnable::run(){//тут выполнять преобразование ф
             }
             QFile inputFile(file);
             QFile outputFile(fileRezPath);
-            qDebug()<<file;
-            qDebug()<<fileRezPath;
+            //qDebug()<<file;
+            //qDebug()<<fileRezPath;
             if (inputFile.open(QIODevice::ReadOnly)&&outputFile.open(QIODevice::WriteOnly))
             {
-                QTextStream in(&inputFile);
-                QTextStream out(&outputFile);
-                while (!in.atEnd())//файл построчно
+                while (!inputFile.atEnd())//файл построчно
                 {
-                    QString line = in.readLine();
+                    QByteArray line = inputFile.read(16);
+                    QByteArray rez = this->xorStrings(line);
+
+                    //QString line = inputFile.read(16);
+                    //QByteArray rez = this->xorStrings(line.toUtf8());
+
+                    //QString line = inputFile.readLine()+"\n";//построчно
                     //Преобразование файла построчно
-                    QByteArray rez = this->xorStrings(line.toUtf8());
-                    qDebug() << rez;
-                    out<<rez;
+
+                    // qDebug()<<"Считанная последовательность:";
+                    // int nValue = line.toInt();
+                    // QString result = QString::number( nValue, 16 );
+                    //qDebug()<<"Значение:   "<< nValue<< ";   16-ричная:   "<<result;
+                    //qDebug()<< line;
+
+                    //quint8 binary = static_cast<quint8>(byte);
+                    //qDebug()<<binary;
+
+                    //
+                    outputFile.write(rez);
+
+                    //out<<rez;
+                    //outputFile.write(line.toUtf8());
+                    //outputFile.write(rez+"\n"); //когда читаем построчно
+                    //qDebug()<<rez;
+
+                    // line="Привет world! 你好! 😊";
+                    // QByteArray rez1 = this->xorStrings(line.toUtf8());
+                    // qDebug()<<rez1;
+                    // qDebug()<<QString::fromUtf8(rez1);
+                    //out<<rez;
                 }
                 inputFile.close();
                 if(m_delFiles){
