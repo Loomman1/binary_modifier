@@ -23,7 +23,7 @@ QByteArray Runnable:: xorStrings(const QByteArray& data) {
     {
         //qDebug()<<data[i];
         //qDebug()<< m_key[i%16];
-        result[i] = data.at(i)^m_key.at(i % 16);
+        result[i] = data.at(i)^m_key.at(i % m_key.size());
         //result[i] = data[i] ^ m_key[i % 16];
         //qDebug()<<data[i]<<" + "<< m_key[i%16]<<" = "<<result[i];
     }
@@ -72,6 +72,12 @@ QStringList Runnable::findFilesToModify(QString path, QStringList filters)
 void Runnable::run(){//тут выполнять преобразование файла
     // Создание маски файлов по выбранным типам
     // Получаем список файлов
+    qDebug()<<"Key info:";
+    qDebug()<<"Size = "<<m_key.size();
+    qDebug()<<"As byte array = "<<m_key;
+    qDebug()<<"As hex = "<<m_key.toHex(' ');
+    qDebug()<<"As UTF-8 = "<<QString(m_key);
+
     do
     {
         m_files=findFilesToModify(m_dir1, m_filters);

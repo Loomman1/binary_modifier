@@ -30,7 +30,7 @@ bool MainWindow::makeChecks(){
     QRegularExpressionMatch match = hexMatcher.match(ui->lineEdit_3->text().toUtf8());
     if(length==16)
     {    if(match.hasMatch()){
-            key = ui->lineEdit_3->text().toUtf8();
+            key = QByteArray::fromHex(ui->lineEdit_3->text().toLatin1());//  ui->lineEdit_3->text().toUtf8();
         }else{
         QMessageBox::warning(this, "Внимание!", "Введенный ключ не является числом в 16-ричной системе");
              return false;
